@@ -5,4 +5,6 @@ COPY . /app
 WORKDIR /app
 RUN npm i -g lerna
 RUN lerna bootstrap
-CMD npm run dev:all
+CMD lerna run dev --parallel
+EXPOSE 3000
+EXPOSE 4000

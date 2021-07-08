@@ -8,6 +8,11 @@ export class UserResolver {
     console.log('GET USER');
     console.log(req.user);
     if (!req.user) return null;
+
     return req.user;
+  }
+  @Query(() => [User])
+  async getAllUsers(@Ctx() { prisma }: Context): Promise<User[] | undefined> {
+    return prisma?.user.findMany({});
   }
 }
