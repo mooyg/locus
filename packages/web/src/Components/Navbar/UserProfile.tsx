@@ -33,8 +33,12 @@ export const UserProfile = () => {
               text: 'Log Out',
               styleProp: {
                 color: '#FF6B6B',
+                cursor: 'pointer',
               },
-              icon: <BiLogOut className="text-2xl" fill="#FF6B6B" />,
+              onClick: () => {
+                window.location.replace('http://localhost:4000/logout');
+              },
+              icon: <BiLogOut className="text-2xl" fill="#FF6B6B " />,
             },
           ]}
         />

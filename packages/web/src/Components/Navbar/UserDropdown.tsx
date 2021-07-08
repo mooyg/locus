@@ -9,9 +9,11 @@ interface Option {
   text: string;
   icon: JSX.Element;
   styleProp?: StyleProp;
+  onClick?: () => void;
 }
 interface StyleProp {
   color?: string;
+  cursor?: string;
 }
 export const UserDropdown = ({ dropdown, options }: AppProps): JSX.Element => {
   return (
@@ -24,9 +26,19 @@ export const UserDropdown = ({ dropdown, options }: AppProps): JSX.Element => {
           <div className="flex flex-col">
             {options.map((item) => {
               return (
-                <div className="flex items-center space-x-1 pt-2 pb-2 p-1">
+                <div
+                  onClick={item.onClick}
+                  style={{ cursor: item.styleProp?.cursor }}
+                  className="flex items-center space-x-1 pt-2 pb-2 p-1"
+                >
                   <h2>{item.icon} </h2>
-                  <h2 style={{ color: item.styleProp?.color }}>{item.text}</h2>
+                  <h2
+                    style={{
+                      color: item.styleProp?.color,
+                    }}
+                  >
+                    {item.text}
+                  </h2>
                 </div>
               );
             })}
