@@ -1,0 +1,4 @@
+packages/api/node_modules
+packages/web/node_modules
+packages/api/.env
+packages/web/.next
