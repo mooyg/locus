@@ -4,17 +4,16 @@ import { motion } from 'framer-motion';
 interface AppProps {
   dropdown: boolean;
   options: Option[];
-  ref: React.MutableRefObject<null>;
 }
 interface Option {
   text: string;
   icon: JSX.Element;
+  styleProp?: StyleProp;
 }
-export const UserDropdown = ({
-  dropdown,
-  options,
-  ref,
-}: AppProps): JSX.Element => {
+interface StyleProp {
+  color?: string;
+}
+export const UserDropdown = ({ dropdown, options }: AppProps): JSX.Element => {
   return (
     <>
       {dropdown && (
@@ -27,7 +26,7 @@ export const UserDropdown = ({
               return (
                 <div className="flex items-center space-x-1 pt-2 pb-2 p-1">
                   <h2>{item.icon} </h2>
-                  <h2>{item.text}</h2>
+                  <h2 style={{ color: item.styleProp?.color }}>{item.text}</h2>
                 </div>
               );
             })}

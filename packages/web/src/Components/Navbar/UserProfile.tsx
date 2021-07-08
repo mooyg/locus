@@ -2,7 +2,8 @@ import React, { useState, useRef } from 'react';
 import { useAppSelector } from '@redux/hooks';
 import { UserDropdown } from '@Components/Navbar/UserDropdown';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { RiUser3Fill, RiLogoutCircleRFill } from 'react-icons/ri';
+import { RiUser3Fill } from 'react-icons/ri';
+import { BiLogOut } from 'react-icons/bi';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
 
 export const UserProfile = () => {
@@ -25,13 +26,15 @@ export const UserProfile = () => {
         </button>
         {dropdown ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
         <UserDropdown
-          ref={clickOutsideRef}
           dropdown={dropdown}
           options={[
             { text: 'Account', icon: <RiUser3Fill className="text-2xl" /> },
             {
               text: 'Log Out',
-              icon: <RiLogoutCircleRFill className="text-2xl" />,
+              styleProp: {
+                color: '#FF6B6B',
+              },
+              icon: <BiLogOut className="text-2xl" fill="#FF6B6B" />,
             },
           ]}
         />
