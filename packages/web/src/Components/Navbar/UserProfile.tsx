@@ -38,7 +38,7 @@ export const UserProfile = () => {
               onClick: () => {
                 window.location.replace('http://localhost:4000/logout');
               },
-              icon: <BiLogOut className="text-2xl" fill="#FF6B6B " />,
+              icon: <BiLogOut className="text-2xl" fill="#FF6B6B" />,
             },
           ]}
         />

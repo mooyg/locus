@@ -11,7 +11,6 @@ import * as passport from 'passport';
 import { PrismaClient } from '@prisma/client';
 
 const db = new PrismaClient();
-
 const main = async () => {
   const app = Express();
 
@@ -49,9 +48,10 @@ const main = async () => {
     console.log(req.user);
     res.send("hm didn't worked");
   });
+
   app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('http://localhost:3000/login');
   });
   apolloServer.applyMiddleware({ app, cors: false });
 

@@ -28,6 +28,7 @@
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",
     "@types/axios": "^0.14.0",
+    "@types/mapbox-gl": "^2.3.3",
     "@types/react": "^17.0.13",
     "autoprefixer": "^10.2.6",
     "babel-plugin-inline-react-svg": "^2.0.1",
