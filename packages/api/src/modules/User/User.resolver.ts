@@ -4,7 +4,7 @@ import { User } from '@models/User';
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
-  async getUser(@Ctx() { req }: Context) {
+  async getUser(@Ctx() { req }: Context): Promise<User | null> {
     console.log('GET USER');
     console.log(req.user);
     if (!req.user) return null;

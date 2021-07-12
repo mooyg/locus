@@ -12,7 +12,7 @@ export class HelloResolver {
 
   @Query(() => String)
   @UseMiddleware(isAuthenticated)
-  async testQuery() {
+  async testQuery(): Promise<string> {
     return 'Authenticated';
   }
 }

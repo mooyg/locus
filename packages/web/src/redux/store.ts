@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import userReducer, { userSlice } from './features/user/userSlice';
+import userReducer from './features/user/userSlice';
 import { combineReducers } from 'redux';
 const rootReducer = combineReducers({ userSlice: userReducer });
 const wrappedReducer: typeof rootReducer = (state, action) => {

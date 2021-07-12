@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoginButton } from '@Components/Login/LoginButton';
 import DiscordLogo from '../../../public/svgs/Discord.svg';
-export const Login = () => {
+export const Login = (): JSX.Element => {
   return (
     <div className="flex h-screen justify-center items-center bg-gray-900 text-textPrimary flex-col">
       <div className="bg-darkgray p-5 rounded-2xl sm:p-10">

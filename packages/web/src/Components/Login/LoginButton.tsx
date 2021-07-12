@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import axios from '@axios/axios';
 export const LoginButton = ({ Text, Icon }: AppProps): JSX.Element => {
   return (
     <motion.a
-      href="http://localhost:4000/api/auth/discord"
+      href={
+        process.env.NODE_ENV
+          ? `${process.env.SERVER_URL}/login`
+          : 'http://localhost:4000/login'
+      }
       whileTap={{ scale: 0.97 }}
       className="bg-darkgraysecondary text-textPrimary font-semibold flex justify-center items-center rounded-xl p-2 hover:bg-gray-600"
     >

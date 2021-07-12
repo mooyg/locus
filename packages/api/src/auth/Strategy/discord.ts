@@ -1,17 +1,23 @@
+import { PrismaClient } from '@prisma/client';
 import { Router } from 'express';
 import { PassportStatic } from 'passport';
 import { Strategy } from 'passport-discord';
 
-export const discordOauth = (passport: PassportStatic, prisma: any): Router => {
+export const discordOauth = (
+  passport: PassportStatic,
+  prisma: PrismaClient
+): Router => {
   const discordAuthRouter = Router();
   const scope = ['identify', 'email', 'guilds', 'guilds.join'];
 
   passport.use(
     new Strategy(
       {
-        clientID: process.env.DISCORD_CLIENT_ID || '',
-        clientSecret: process.env.DISCORD_CLIENT_SECRET || '',
-        callbackURL: process.env.DISCORD_CALLBACK_URL,
+        clientID: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
+        callbackURL: process.env.CLIENT_URL
+          ? `${process.env.CLIENT_URL}/api/auth/discord/callback`
+          : 'http://localhost:4000/api/auth/discord/callback',
         scope,
       },
       async (_accessToken: any, _refreshToken: any, profile, done: any) => {

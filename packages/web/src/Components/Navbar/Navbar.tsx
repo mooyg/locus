@@ -1,7 +1,7 @@
 import React from 'react';
 import LogoSVG from '../../../public/svgs/logo.svg';
 import { UserProfile } from '@Components/Navbar/UserProfile';
-export const Navbar = () => {
+export const Navbar = (): JSX.Element => {
   return (
     <div className="flex items-center justify-between	">
       <div className="flex justify-center items-center">

@@ -51,7 +51,11 @@ const main = async () => {
 
   app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('http://localhost:3000/login');
+    res.redirect(
+      process.env.NODE_ENV
+        ? `${process.env.CLIENT_URL}/login`
+        : 'http://localhost:3000'
+    );
   });
   apolloServer.applyMiddleware({ app, cors: false });
 

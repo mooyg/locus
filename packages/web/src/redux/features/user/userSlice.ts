@@ -1,4 +1,4 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
 interface UserStruct {
@@ -24,6 +24,6 @@ export const userSlice = createSlice({
 });
 
 export const { setUser } = userSlice.actions;
-export const selectMessage = (state: RootState) =>
+export const selectMessage = (state: RootState): UserStruct =>
   state.wrappedReducer.userSlice.value;
 export default userSlice.reducer;

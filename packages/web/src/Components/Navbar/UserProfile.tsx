@@ -6,7 +6,7 @@ import { RiUser3Fill } from 'react-icons/ri';
 import { BiLogOut } from 'react-icons/bi';
 import { useOnClickOutside } from '@hooks/useOnClickOutside';
 
-export const UserProfile = () => {
+export const UserProfile = (): JSX.Element => {
   const user = useAppSelector((state) => state.wrappedReducer.userSlice.value);
 
   const clickOutsideRef = useRef(null);
@@ -36,7 +36,11 @@ export const UserProfile = () => {
                 cursor: 'pointer',
               },
               onClick: () => {
-                window.location.replace('http://localhost:4000/logout');
+                window.location.replace(
+                  process.env.NODE_ENV
+                    ? `${process.env.SERVER_URL}/logout`
+                    : 'http://localhost:4000/logout'
+                );
               },
               icon: <BiLogOut className="text-2xl" fill="#FF6B6B" />,
             },

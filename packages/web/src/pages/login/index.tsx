@@ -2,13 +2,7 @@ import { Login } from '@Components/Login/Login';
 import { GetServerSidePropsResult } from 'next';
 import { wrapper } from '@redux/store';
 import { withUrqlClient, initUrqlClient } from 'next-urql';
-import {
-  ssrExchange,
-  dedupExchange,
-  cacheExchange,
-  fetchExchange,
-  useQuery,
-} from 'urql';
+import { ssrExchange, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 import { devtoolsExchange } from '@urql/devtools';
 import { GET_USER } from '@graphql/queries';
 import { setUser } from '@redux/features/user/userSlice';
@@ -27,7 +21,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
       const ssrCache = ssrExchange({ isClient: false });
       const client = initUrqlClient(
         {
-          url: 'http://localhost:4000/graphql',
+          url: process.env.NODE_ENV
+            ? `${process.env.SERVER_URL}/graphql`
+            : 'http://localhost:4000/graphql',
           exchanges: [
             dedupExchange,
             cacheExchange,
@@ -57,8 +53,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 );
 export default withUrqlClient(
-  (ssr) => ({
-    url: 'http://localhost:4000/graphql',
+  (_ssr) => ({
+    url: process.env.NODE_ENV
+      ? `${process.env.SERVER_URL}/graphql`
+      : 'http://localhost:4000/graphql',
   }),
   { ssr: false } // Important so we don't wrap our component in getInitialProps
 )(LoginIndex);
