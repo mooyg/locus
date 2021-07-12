@@ -13,12 +13,14 @@ generator client {
 generator typegraphql {
     provider = "typegraphql-prisma"
     output   = "../prisma/generated/type-graphql"
+    emitTranspiledCode = true
+
 }
 
 model User {
     id   String   @id @default(uuid())
     username String
-    avatar String 
+    avatar String
     email String?
     discord_user_id String?
 }
