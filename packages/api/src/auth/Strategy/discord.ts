@@ -20,7 +20,7 @@ export const discordOauth = (
           : 'http://localhost:4000/api/auth/discord/callback',
         scope,
       },
-      async (_accessToken: any, _refreshToken: any, profile, done: any) => {
+      async (_accessToken, _refreshToken, profile, done) => {
         console.log(profile);
         const findUser = await prisma.user.findFirst({
           where: {
@@ -43,7 +43,7 @@ export const discordOauth = (
           });
           return done(null, discordUser);
         } catch (e) {
-          return done(e, null);
+          return done(e, undefined);
         }
       }
     )

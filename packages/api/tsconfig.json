@@ -33,6 +33,6 @@
       "@pathToResolvers/*": ["src/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "prisma"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]
 }

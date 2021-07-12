@@ -16,7 +16,7 @@ const LoginIndex = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
-    async ({ req }): Promise<GetServerSidePropsResult<any>> => {
+    async ({ req }) => {
       console.log('GET SERVER SIDE PROPS');
       const ssrCache = ssrExchange({ isClient: false });
       const client = initUrqlClient(

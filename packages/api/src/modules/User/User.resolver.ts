@@ -1,6 +1,6 @@
 import { Context } from '@context/context';
 import { Ctx, Query, Resolver } from 'type-graphql';
-import { User } from '@models/User';
+import { User } from '@generated/type-graphql';
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
