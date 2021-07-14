@@ -16,7 +16,7 @@ export const initializeAuthRoutes = (
       res.send(req.user);
     } else {
       res.redirect(
-        process.env.NODE_ENV
+        process.env.NODE_ENV === 'production'
           ? `${process.env.CLIENT_URL}/login`
           : 'http://localhost:3000'
       );

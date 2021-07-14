@@ -4,7 +4,7 @@ export const LoginButton = ({ Text, Icon }: AppProps): JSX.Element => {
   return (
     <motion.a
       href={
-        process.env.NODE_ENV
+        process.env.NODE_ENV === 'production'
           ? `${process.env.SERVER_URL}/login`
           : 'http://localhost:4000/login'
       }

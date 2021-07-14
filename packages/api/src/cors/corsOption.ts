@@ -4,8 +4,9 @@ interface CorsOptions {
 }
 
 export const corsOptions: CorsOptions = {
-  origin: process.env.NODE_ENV
-    ? process.env.CLIENT_URL
-    : 'http://localhost:3000',
+  origin:
+    process.env.NODE_ENV === 'production'
+      ? process.env.CLIENT_URL
+      : 'http://localhost:3000',
   credentials: true,
 };

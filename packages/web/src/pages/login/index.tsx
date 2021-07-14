@@ -21,9 +21,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
       const ssrCache = ssrExchange({ isClient: false });
       const client = initUrqlClient(
         {
-          url: process.env.NODE_ENV
-            ? `${process.env.SERVER_URL}/graphql`
-            : 'http://localhost:4000/graphql',
+          url:
+            process.env.NODE_ENV === 'production'
+              ? `${process.env.SERVER_URL}/graphql`
+              : 'http://localhost:4000/graphql',
           exchanges: [
             dedupExchange,
             cacheExchange,
@@ -54,9 +55,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 export default withUrqlClient(
   (_ssr) => ({
-    url: process.env.NODE_ENV
-      ? `${process.env.SERVER_URL}/graphql`
-      : 'http://localhost:4000/graphql',
+    url:
+      process.env.NODE_ENV === 'production'
+        ? `${process.env.SERVER_URL}/graphql`
+        : 'http://localhost:4000/graphql',
   }),
   { ssr: false } // Important so we don't wrap our component in getInitialProps
 )(LoginIndex);

@@ -37,7 +37,7 @@ export const UserProfile = (): JSX.Element => {
               },
               onClick: () => {
                 window.location.replace(
-                  process.env.NODE_ENV
+                  process.env.NODE_ENV === 'production'
                     ? `${process.env.SERVER_URL}/logout`
                     : 'http://localhost:4000/logout'
                 );

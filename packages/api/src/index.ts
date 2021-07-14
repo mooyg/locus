@@ -9,7 +9,6 @@ import { corsOptions } from '@cors/corsOption';
 import { initializeAuthRoutes } from './auth';
 import * as passport from 'passport';
 import { PrismaClient } from '@prisma/client';
-
 const db = new PrismaClient();
 const main = async () => {
   const app = Express();
@@ -22,6 +21,7 @@ const main = async () => {
   app.use(
     session({
       store: new RedisStore({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         client: redis as any,
       }),
       name: 'qid',
@@ -39,6 +39,7 @@ const main = async () => {
 
   app.use(passport.session());
   passport.serializeUser((user, done) => done(null, user));
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   passport.deserializeUser((user, done) => done(null, user));
 
@@ -52,7 +53,7 @@ const main = async () => {
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect(
-      process.env.NODE_ENV
+      process.env.NODE_ENV === 'production'
         ? `${process.env.CLIENT_URL}/login`
         : 'http://localhost:3000'
     );
