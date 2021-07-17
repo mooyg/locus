@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Alert, Button, Image, Pressable, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -17,16 +17,46 @@ export const SignInScreen = () => {
       </View>
       <View style={styles.signincontainer}>
         <View style={styles.signinbox}>
-          <Text
-            style={{
-              color: '#EEEEEE',
-              fontWeight: '700',
-              fontSize: 24,
-              fontFamily: 'Montserrat',
-            }}
-          >
-            Login to Locus
-          </Text>
+          <View>
+            <Text
+              style={{
+                color: '#EEEEEE',
+                fontSize: 24,
+                fontFamily: 'MontserratSemiBold',
+                marginBottom: 10,
+              }}
+            >
+              Login To Locus
+            </Text>
+            <Text
+              style={{
+                color: '#EEEEEE',
+                fontFamily: 'MontserratSemiBold',
+              }}
+            >
+              Stay Safe.
+            </Text>
+          </View>
+          <View>
+            <Pressable
+              onPress={() => Alert.alert('Button with adjusted color pressed')}
+              style={styles.signinbutton}
+            >
+              <Image
+                style={styles.discordpng}
+                source={require('../assets/Discord.png')}
+              />
+              <Text
+                style={{
+                  fontFamily: 'MontserratSemiBold',
+                  color: 'white',
+                  padding: 8,
+                }}
+              >
+                Continue with Discord
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </View>
@@ -56,7 +86,21 @@ const styles = StyleSheet.create({
   },
   signinbox: {
     backgroundColor: '#3A4750',
-    padding: 40,
+    padding: 50,
     borderRadius: 16,
+  },
+  signinbutton: {
+    color: 'white',
+    backgroundColor: '#4B5D67',
+    borderRadius: 12,
+    padding: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  discordpng: {
+    marginRight: 2,
+    tintColor: 'white',
   },
 });

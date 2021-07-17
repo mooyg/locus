@@ -12,8 +12,9 @@ import { useFonts } from '@expo-google-fonts/inter';
 const Drawer = createDrawerNavigator();
 const App = (): JSX.Element => {
   useFonts({
-    Montserrat:
-      'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap',
+    Montserrat: require('./assets/Montserrat-Medium.ttf'),
+    MontserratBold: require('./assets/Montserrat-Bold.ttf'),
+    MontserratSemiBold: require('./assets/Montserrat-SemiBold.ttf'),
   });
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   return (
