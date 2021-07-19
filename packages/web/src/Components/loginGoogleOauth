@@ -1,10 +1,10 @@
 function doGet(e) {
   var HTMLToOutput;
-  if(e.parameters.code){//if we get "code" as a parameter in, then this is a callback. we can make this more explicit
+  if(e.parameters.code){
     getAndStoreAccessToken(e.parameters.code);
     HTMLToOutput = '<html><h1>Finished with oAuth</h1></html>';
   }
-  else if(isTokenValid()){//if we already have a valid token, go off and start working with data
+  else if(isTokenValid()){
     HTMLToOutput = '<html><h1>Already have token</h1></html>';
   }
   else {//we are starting from scratch or resetting
@@ -25,8 +25,8 @@ function getData(){
 
 
 
-var AUTHORIZE_URL = 'https://accounts.google.com/o/oauth2/auth'; //step 1. we can actually start directly here if that is necessary
-var TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'; //step 2. after we get the callback, go get token
+var AUTHORIZE_URL = 'https://accounts.google.com/o/oauth2/auth';
+var TOKEN_URL = 'https://accounts.google.com/o/oauth2/token';
 
 var CLIENT_ID = '399300901214-dhl4ir44kcb1bkfl7r04vh2rrhqncj1h.apps.googleusercontent.com';
 var CLIENT_SECRET='GOOGLE_OAUTH_SECRET_HERE';
