@@ -2,10 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { Router } from 'express';
 import { PassportStatic } from 'passport';
 import { Strategy } from 'passport-discord';
-/* process.env.NODE_ENV
-          ? `${process.env.CLIENT_URL}/api/auth/discord/callback`
-          : 'http://10.0.2.2:4000/api/auth/discord/callback'
-          */
+
 export const discordOauth = (
   passport: PassportStatic,
   prisma: PrismaClient

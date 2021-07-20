@@ -32,8 +32,7 @@ const App = (): JSX.Element => {
       },
     },
   };
-  console.log('WORK GOD DAMN IT!!!');
-  console.log('WORK BROP');
+
   return (
     <SafeAreaProvider>
       <SafeAreaView />
