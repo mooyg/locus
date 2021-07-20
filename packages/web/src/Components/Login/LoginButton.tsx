@@ -5,8 +5,8 @@ export const LoginButton = ({ Text, Icon }: AppProps): JSX.Element => {
     <motion.a
       href={
         process.env.NODE_ENV === 'production'
-          ? `${process.env.SERVER_URL}/login`
-          : 'http://localhost:4000/login'
+          ? `${process.env.SERVER_URL}/api/auth/discord`
+          : 'http://localhost:4000/api/auth/discord'
       }
       whileTap={{ scale: 0.97 }}
       className="bg-darkgraysecondary text-textPrimary font-semibold flex justify-center items-center rounded-xl p-2 hover:bg-gray-600"

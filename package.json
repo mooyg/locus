@@ -4,7 +4,8 @@
   "scripts": {
     "dev:all": "lerna run dev --parallel",
     "build:api": "lerna run --scope api build",
-    "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
+    "kill": "kill-port 4000 3000 19002 19000 19006"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.2",

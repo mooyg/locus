@@ -44,7 +44,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         false
       );
       const data = await client?.query(GET_USER).toPromise();
-      console.log(data);
+      console.log('COOKIE', req.headers.cookie);
       if (!data?.data.getUser) {
         return {
           redirect: {

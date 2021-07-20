@@ -8,19 +8,36 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SignInScreen } from './Screens/SignInScreen';
 import { useFonts } from '@expo-google-fonts/inter';
+import * as Linking from 'expo-linking';
+import { useEffect } from 'react';
 
 const Drawer = createDrawerNavigator();
+const prefix = Linking.createURL('/');
+
 const App = (): JSX.Element => {
+  useEffect(() => {
+    console.log('WORK BRO');
+  }, []);
   useFonts({
     Montserrat: require('./assets/Montserrat-Medium.ttf'),
     MontserratBold: require('./assets/Montserrat-Bold.ttf'),
     MontserratSemiBold: require('./assets/Montserrat-SemiBold.ttf'),
   });
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        Home: '*',
+      },
+    },
+  };
+  console.log('WORK GOD DAMN IT!!!');
+  console.log('WORK BROP');
   return (
     <SafeAreaProvider>
       <SafeAreaView />
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         {isSignedIn ? (
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen

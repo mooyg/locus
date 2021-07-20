@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { Alert, Button, Image, Pressable, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
+import * as AuthSession from 'expo-auth-session';
 
 export const SignInScreen = () => {
   const [result, setResult] = useState<WebBrowser.WebBrowserResult>();
 
   const handleLogin = async () => {
-    let result = await WebBrowser.openBrowserAsync('https://expo.io');
+    let result = await WebBrowser.openBrowserAsync(
+      'http://10.0.2.2:4000/api/auth/discord/mobileapp'
+    );
     setResult(result);
   };
+  console.log(result);
   return (
     <View style={styles.signinscreencontainer}>
       <View style={styles.headercontainer}>
@@ -38,10 +42,7 @@ export const SignInScreen = () => {
             </Text>
           </View>
           <View>
-            <Pressable
-              onPress={() => Alert.alert('Button with adjusted color pressed')}
-              style={styles.signinbutton}
-            >
+            <Pressable onPress={handleLogin} style={styles.signinbutton}>
               <Image
                 style={styles.discordpng}
                 source={require('../assets/Discord.png')}

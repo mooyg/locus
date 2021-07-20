@@ -2,22 +2,29 @@ import { PrismaClient } from '@prisma/client';
 import { Router } from 'express';
 import { PassportStatic } from 'passport';
 import { Strategy } from 'passport-discord';
-
+/* process.env.NODE_ENV
+          ? `${process.env.CLIENT_URL}/api/auth/discord/callback`
+          : 'http://10.0.2.2:4000/api/auth/discord/callback'
+          */
 export const discordOauth = (
   passport: PassportStatic,
   prisma: PrismaClient
 ): Router => {
+  console.log('INSIDE DISCORD OAUTH');
   const discordAuthRouter = Router();
   const scope = ['identify', 'email', 'guilds', 'guilds.join'];
+  let callbackURL;
+  let deviceType;
+  if (process.env.NODE_ENV) {
+    callbackURL = `${process.env.CLIENT_URL}/api/auth/discord/callback`;
+  }
 
   passport.use(
     new Strategy(
       {
         clientID: process.env.DISCORD_CLIENT_ID,
         clientSecret: process.env.DISCORD_CLIENT_SECRET,
-        callbackURL: process.env.CLIENT_URL
-          ? `${process.env.CLIENT_URL}/api/auth/discord/callback`
-          : 'http://localhost:4000/api/auth/discord/callback',
+        callbackURL,
         scope,
       },
       async (_accessToken, _refreshToken, profile, done) => {
@@ -48,11 +55,31 @@ export const discordOauth = (
       }
     )
   );
-  discordAuthRouter.get('/', passport.authenticate('discord'));
   discordAuthRouter.get(
-    '/callback',
+    '/:device',
+    passport.authenticate('discord'),
+    (req, _res) => {
+      console.log(req.params.device);
+      deviceType = req.params.device;
+      callbackURL =
+        deviceType === 'mobileapp'
+          ? 'http://10.0.2.2:4000/api/auth/discord/callback/mobile'
+          : 'http://localhost:4000/api/auth/discord/callback/browser';
+    }
+  );
+  discordAuthRouter.get(
+    '/callback/mobile',
     passport.authenticate('discord', { failureRedirect: '/' }),
     (_req, res) => {
+      console.log('MOBILE APP HERE');
+      res.redirect('exp://192.168.29.20:19000');
+    }
+  );
+  discordAuthRouter.get(
+    '/callback/browser',
+    passport.authenticate('discord', { failureRedirect: '/' }),
+    (_req, res) => {
+      console.log('BROWSER HERE');
       res.redirect('http://localhost:3000');
     }
   );
