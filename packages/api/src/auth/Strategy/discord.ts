@@ -67,9 +67,12 @@ export const discordOauth = (
   discordAuthRouter.get(
     '/callback/mobile',
     passport.authenticate('discord', { failureRedirect: '/' }),
-    (_req, res) => {
+    (req, res) => {
       console.log('MOBILE APP HERE');
-      res.redirect('exp://192.168.29.20:19000');
+      if (!req.user) return;
+      console.log(req.user);
+      //?username=${req.user.username}&id=${req.user.id}&avatar=${req.user.avatar}&email=${req.user.email}
+      res.redirect(`exp://192.168.29.20:19000`);
     }
   );
   discordAuthRouter.get(

@@ -2,18 +2,24 @@ import React, { useState } from 'react';
 import { Alert, Button, Image, Pressable, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import * as AuthSession from 'expo-auth-session';
-
+import * as Linking from 'expo-linking';
+import { storeData } from '../utils/storeData';
 export const SignInScreen = () => {
   const [result, setResult] = useState<WebBrowser.WebBrowserResult>();
-
+  const userDetails = (url: string) => {
+    const { queryParams } = Linking.parse(url);
+    console.log(queryParams);
+    storeData(queryParams, '@user_details');
+  };
+  Linking.addEventListener('url', ({ url }) => {
+    userDetails(url);
+  });
   const handleLogin = async () => {
     let result = await WebBrowser.openBrowserAsync(
       'http://10.0.2.2:4000/api/auth/discord/mobileapp'
     );
     setResult(result);
   };
-  console.log(result);
   return (
     <View style={styles.signinscreencontainer}>
       <View style={styles.headercontainer}>

@@ -10,14 +10,12 @@ import { SignInScreen } from './Screens/SignInScreen';
 import { useFonts } from '@expo-google-fonts/inter';
 import * as Linking from 'expo-linking';
 import { useEffect } from 'react';
+import { getData } from './utils/getData';
 
 const Drawer = createDrawerNavigator();
 const prefix = Linking.createURL('/');
 
 const App = (): JSX.Element => {
-  useEffect(() => {
-    console.log('WORK BRO');
-  }, []);
   useFonts({
     Montserrat: require('./assets/Montserrat-Medium.ttf'),
     MontserratBold: require('./assets/Montserrat-Bold.ttf'),
@@ -32,7 +30,15 @@ const App = (): JSX.Element => {
       },
     },
   };
-
+  useEffect(() => {
+    (async () => {
+      const userDetails = await getData('@user_details');
+      console.log('USER DETAILS', userDetails);
+      if (userDetails) {
+        setIsSignedIn(true);
+      }
+    })();
+  }, []);
   return (
     <SafeAreaProvider>
       <SafeAreaView />
