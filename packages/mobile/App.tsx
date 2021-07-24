@@ -22,6 +22,7 @@ const App = (): JSX.Element => {
     MontserratSemiBold: require('./assets/Montserrat-SemiBold.ttf'),
   });
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [checkSign, setCheckSign] = useState<boolean>();
   const linking = {
     prefixes: [prefix],
     config: {
@@ -30,7 +31,7 @@ const App = (): JSX.Element => {
       },
     },
   };
-  useFocusEffect(() => {
+  useEffect(() => {
     (async () => {
       const userDetails = await getData('@user_details');
       console.log('USER DETAILS', userDetails);
@@ -38,7 +39,7 @@ const App = (): JSX.Element => {
         setIsSignedIn(true);
       }
     })();
-  }, []);
+  }, [checkSign]);
   return (
     <SafeAreaProvider>
       <SafeAreaView />
@@ -54,7 +55,7 @@ const App = (): JSX.Element => {
           </Drawer.Navigator>
         ) : (
           <>
-            <SignInScreen />
+            <SignInScreen signInUpdate={setCheckSign} />
           </>
         )}
       </NavigationContainer>

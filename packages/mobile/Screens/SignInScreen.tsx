@@ -6,14 +6,19 @@ import * as Linking from 'expo-linking';
 import { storeData } from '../utils/storeData';
 import { useEffect } from 'react';
 
-export const SignInScreen = () => {
+interface Props {
+  signInUpdate: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+}
+export const SignInScreen = ({ signInUpdate }: Props) => {
   const [result, setResult] = useState<WebBrowser.WebBrowserResult>();
-  const userDetails = (url: string) => {
+  const userDetails = async (url: string) => {
     const { queryParams } = Linking.parse(url);
-    console.log(queryParams);
-    storeData(queryParams, '@user_details');
+    console.log('1');
+    await storeData(queryParams, '@user_details');
+    console.log('2');
+    signInUpdate(true);
   };
-  const urlHandler = ({ url }) => {
+  const urlHandler = ({ url }: any) => {
     userDetails(url);
   };
   useEffect(() => {
