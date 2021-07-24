@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { HomeScreen } from './Screens/HomeScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { UserProfileScreen } from './Screens/UserProfileScreen';
@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
       },
     },
   };
-  useEffect(() => {
+  useFocusEffect(() => {
     (async () => {
       const userDetails = await getData('@user_details');
       console.log('USER DETAILS', userDetails);

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Alert, Button, Image, Pressable, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Linking from 'expo-linking';
 import { storeData } from '../utils/storeData';
+import { useEffect } from 'react';
+
 export const SignInScreen = () => {
   const [result, setResult] = useState<WebBrowser.WebBrowserResult>();
   const userDetails = (url: string) => {
@@ -11,9 +13,13 @@ export const SignInScreen = () => {
     console.log(queryParams);
     storeData(queryParams, '@user_details');
   };
-  Linking.addEventListener('url', ({ url }) => {
+  const urlHandler = ({ url }) => {
     userDetails(url);
-  });
+  };
+  useEffect(() => {
+    Linking.addEventListener('url', urlHandler);
+    return () => Linking.removeEventListener('url', urlHandler);
+  }, []);
   const handleLogin = async () => {
     let result = await WebBrowser.openBrowserAsync(
       'http://10.0.2.2:4000/api/auth/discord/mobileapp'

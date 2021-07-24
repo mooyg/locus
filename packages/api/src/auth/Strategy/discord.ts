@@ -70,9 +70,10 @@ export const discordOauth = (
     (req, res) => {
       console.log('MOBILE APP HERE');
       if (!req.user) return;
-      console.log(req.user);
-      //?username=${req.user.username}&id=${req.user.id}&avatar=${req.user.avatar}&email=${req.user.email}
-      res.redirect(`exp://192.168.29.20:19000`);
+      console.log(req.user.username);
+      res.redirect(
+        `exp://192.168.29.20:19000?username=${req.user.username}&id=${req.user.id}&avatar=${req.user.avatar}&email=${req.user.email}`
+      );
     }
   );
   discordAuthRouter.get(
