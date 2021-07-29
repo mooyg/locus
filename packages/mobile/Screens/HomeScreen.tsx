@@ -1,19 +1,25 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StyleSheet, Text, View } from 'react-native';
 
 export const HomeScreen = () => {
   return (
-    <View>
-      <Text>Home Screen</Text>
-      <Pressable
-        onPress={async () => {
-          await AsyncStorage.clear();
-          console.log('DONE');
-        }}
-      >
-        <Text>Clear</Text>
-      </Pressable>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text>HEADER</Text>
+      </View>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: 4,
+    color: 'white',
+  },
+  container: {
+    backgroundColor: '#111827',
+    height: '100%',
+    color: 'white',
+  },
+});
