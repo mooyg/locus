@@ -11,8 +11,9 @@ import { useFonts } from '@expo-google-fonts/inter';
 import * as Linking from 'expo-linking';
 import { useEffect } from 'react';
 import { getData } from './utils/getData';
+import { StackParamList } from './types/screen.type';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<StackParamList>();
 const prefix = Linking.createURL('/');
 
 const App = (): JSX.Element => {
@@ -42,7 +43,6 @@ const App = (): JSX.Element => {
   }, [checkSign]);
   return (
     <SafeAreaProvider>
-      <SafeAreaView />
       <NavigationContainer linking={linking}>
         {isSignedIn ? (
           <Drawer.Navigator initialRouteName="Home">
@@ -59,7 +59,6 @@ const App = (): JSX.Element => {
           </>
         )}
       </NavigationContainer>
-      <SafeAreaView />
     </SafeAreaProvider>
   );
 };
