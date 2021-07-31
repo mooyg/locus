@@ -5,7 +5,7 @@ import { Props } from '../types/screen.type';
 import { SafeAreaView } from 'react-native-safe-area-context';
 export const HomeScreen = ({ navigation }: Props): JSX.Element => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Ionicons

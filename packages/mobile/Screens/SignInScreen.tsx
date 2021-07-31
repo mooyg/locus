@@ -5,6 +5,7 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Linking from 'expo-linking';
 import { storeData } from '../utils/storeData';
 import { useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface Props {
   signInUpdate: React.Dispatch<React.SetStateAction<boolean | undefined>>;
@@ -32,52 +33,57 @@ export const SignInScreen = ({ signInUpdate }: Props) => {
     setResult(result);
   };
   return (
-    <View style={styles.signinscreencontainer}>
-      <View style={styles.headercontainer}>
-        <Image style={styles.tinyLogo} source={require('../assets/logo.png')} />
-      </View>
-      <View style={styles.signincontainer}>
-        <View style={styles.signinbox}>
-          <View>
-            <Text
-              style={{
-                color: '#EEEEEE',
-                fontSize: 24,
-                fontFamily: 'MontserratSemiBold',
-                marginBottom: 10,
-              }}
-            >
-              Login To Locus
-            </Text>
-            <Text
-              style={{
-                color: '#EEEEEE',
-                fontFamily: 'MontserratSemiBold',
-              }}
-            >
-              Stay Safe.
-            </Text>
-          </View>
-          <View>
-            <Pressable onPress={handleLogin} style={styles.signinbutton}>
-              <Image
-                style={styles.discordpng}
-                source={require('../assets/Discord.png')}
-              />
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={styles.signinscreencontainer}>
+        <View style={styles.headercontainer}>
+          <Image
+            style={styles.tinyLogo}
+            source={require('../assets/logo.png')}
+          />
+        </View>
+        <View style={styles.signincontainer}>
+          <View style={styles.signinbox}>
+            <View>
               <Text
                 style={{
+                  color: '#EEEEEE',
+                  fontSize: 24,
                   fontFamily: 'MontserratSemiBold',
-                  color: 'white',
-                  padding: 8,
+                  marginBottom: 10,
                 }}
               >
-                Continue with Discord
+                Login To Locus
               </Text>
-            </Pressable>
+              <Text
+                style={{
+                  color: '#EEEEEE',
+                  fontFamily: 'MontserratSemiBold',
+                }}
+              >
+                Stay Safe.
+              </Text>
+            </View>
+            <View>
+              <Pressable onPress={handleLogin} style={styles.signinbutton}>
+                <Image
+                  style={styles.discordpng}
+                  source={require('../assets/Discord.png')}
+                />
+                <Text
+                  style={{
+                    fontFamily: 'MontserratSemiBold',
+                    color: 'white',
+                    padding: 8,
+                  }}
+                >
+                  Continue with Discord
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
