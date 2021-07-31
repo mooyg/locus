@@ -1,16 +1,6 @@
-import RNLocation from 'react-native-location';
+import * as Location from 'expo-location';
 
-export const requestPermissions = async (): Promise<boolean> => {
-  return await RNLocation.requestPermission({
-    ios: 'whenInUse', // or 'always'
-    android: {
-      detail: 'coarse', // or 'fine'
-      rationale: {
-        title: 'We need to access your location',
-        message: 'We use your location to show where you are on the map',
-        buttonPositive: 'OK',
-        buttonNegative: 'Cancel',
-      },
-    },
-  });
-};
+export const checkLocationServices =
+  async (): Promise<Location.LocationPermissionResponse> => {
+    return await Location.requestForegroundPermissionsAsync();
+  };
