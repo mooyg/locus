@@ -3,7 +3,19 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Props } from '../types/screen.type';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useEffect } from 'react';
+import { checkPermissions } from '../utils/checkPermissions';
+import { locationConfig } from '../utils/locationConfig';
+import RNLocation, { Subscription } from 'react-native-location';
+import { requestPermissions } from '../utils/requestPermissions';
 export const HomeScreen = ({ navigation }: Props): JSX.Element => {
+  useEffect(() => {
+    (async () => {
+      const hasPermissions = await checkPermissions();
+      console.log(hasPermissions);
+      if (!hasPermissions) requestPermissions();
+    })();
+  });
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
