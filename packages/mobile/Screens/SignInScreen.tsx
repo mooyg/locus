@@ -12,6 +12,7 @@ interface Props {
 }
 export const SignInScreen = ({ signInUpdate }: Props) => {
   const [result, setResult] = useState<WebBrowser.WebBrowserResult>();
+
   const userDetails = async (url: string) => {
     const { queryParams } = Linking.parse(url);
     console.log('1');
@@ -19,13 +20,16 @@ export const SignInScreen = ({ signInUpdate }: Props) => {
     console.log('2');
     signInUpdate(true);
   };
+
   const urlHandler = ({ url }: any) => {
     userDetails(url);
   };
+
   useEffect(() => {
     Linking.addEventListener('url', urlHandler);
     return () => Linking.removeEventListener('url', urlHandler);
   }, []);
+
   const handleLogin = async () => {
     let result = await WebBrowser.openBrowserAsync(
       'http://10.0.2.2:4000/api/auth/discord/mobileapp'
