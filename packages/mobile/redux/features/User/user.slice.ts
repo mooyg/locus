@@ -21,16 +21,14 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      //tate.value += action.payload;
-    },
     setUser: (state, action) => {
       console.log(action);
+      state.value = action.payload;
     },
   },
 });
 
-export const { setUser, incrementByAmount } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 
 export const selectCount = (state: RootState) => state.user.value;
 

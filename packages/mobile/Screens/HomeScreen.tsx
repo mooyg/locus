@@ -45,7 +45,7 @@ export const HomeScreen = ({ navigation }: Props): JSX.Element => {
     };
   });
   /*https://cdn.discordapp.com/avatars/${user.discord_user_id}/${user.avatar}.png?size=64 */
-
+  console.log(user);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
@@ -72,8 +72,9 @@ export const HomeScreen = ({ navigation }: Props): JSX.Element => {
           >
             <Marker
               coordinate={{ latitude: latitude, longitude: longitude }}
+              style={{ borderRadius: 20 }}
               image={{
-                uri: `https://cdn.discordapp.com/avatars/${user.discordUserId}/${user.avatar}.png?size=64`,
+                uri: `https://cdn.discordapp.com/avatars/${user.discordUserId}/${user.avatar}.png?size=128`,
               }}
             />
           </MapView>
