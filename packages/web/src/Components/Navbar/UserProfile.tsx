@@ -21,7 +21,7 @@ export const UserProfile = (): JSX.Element => {
           <img
             className="rounded-full w-10 h-10"
             draggable="false"
-            src={`https://cdn.discordapp.com/avatars/${user.discord_user_id}/${user.avatar}.png?size=64 `}
+            src={`${user.avatar}`}
           />
         </button>
         {dropdown ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}

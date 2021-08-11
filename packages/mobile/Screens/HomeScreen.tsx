@@ -1,15 +1,15 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Props } from '../types/screen.type';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect, useRef } from 'react';
 import { checkLocationServices } from '../utils/checkLocationServices';
 import * as Location from 'expo-location';
 import { LocationAccuracy } from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, MarkerAnimated } from 'react-native-maps';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hook';
+import { Button } from 'react-native';
 
 export const HomeScreen = ({ navigation }: Props): JSX.Element => {
   const locationSubscriptionRef = useRef<{ remove(): void }>();
@@ -47,17 +47,16 @@ export const HomeScreen = ({ navigation }: Props): JSX.Element => {
   /*https://cdn.discordapp.com/avatars/${user.discord_user_id}/${user.avatar}.png?size=64 */
   console.log(user);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'gray' }}>
+      <View style={styles.nav}>
+        <Pressable>
+          <Image style={styles.icon} source={require('../assets/left.png')} />
+        </Pressable>
+        <Pressable style={styles.pressable}>
+          <Image style={styles.icon} source={require('../assets/menu.png')} />
+        </Pressable>
+      </View>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Ionicons
-            name="ios-menu"
-            size={40}
-            color="black"
-            onPress={() => navigation.openDrawer()}
-            style={{ color: 'white' }}
-          />
-        </View>
         {longitude && (
           <MapView
             loadingEnabled={true}
@@ -72,11 +71,22 @@ export const HomeScreen = ({ navigation }: Props): JSX.Element => {
           >
             <Marker
               coordinate={{ latitude: latitude, longitude: longitude }}
-              style={{ borderRadius: 20 }}
-              image={{
-                uri: `https://cdn.discordapp.com/avatars/${user.discordUserId}/${user.avatar}.png?size=128`,
-              }}
-            />
+              style={{ borderRadius: 20, overflow: 'hidden' }}
+              onPress={() => console.log('CLICKED ON MARKER')}
+            >
+              <View style={{ height: 64, width: 64 }}>
+                <Image
+                  style={{ height: '100%', width: '100%', borderRadius: 50 }}
+                  source={{
+                    uri: `https://cdn.discordapp.com/avatars/${user.discordUserId}/${user.avatar}.png?size=128`,
+                  }}
+                />
+                <Image
+                  style={{ height: '100%', width: '100%' }}
+                  source={require('../assets/CustomMarker.png')}
+                />
+              </View>
+            </Marker>
           </MapView>
         )}
       </View>
@@ -95,5 +105,20 @@ const styles = StyleSheet.create({
     height: '100%',
     color: 'white',
     flex: 1,
+  },
+  icon: {
+    width: 25,
+    height: 14,
+    tintColor: 'black',
+  },
+  pressable: {
+    width: 25,
+  },
+  nav: {
+    backgroundColor: 'white',
+    paddingTop: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
