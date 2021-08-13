@@ -6,10 +6,12 @@ import { useEffect, useRef } from 'react';
 import { checkLocationServices } from '../utils/checkLocationServices';
 import * as Location from 'expo-location';
 import { LocationAccuracy } from 'expo-location';
-import MapView, { Marker, MarkerAnimated } from 'react-native-maps';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hook';
-import { Button } from 'react-native';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+MapboxGL.setAccessToken(
+  'pk.eyJ1IjoibW9veSIsImEiOiJja3F2dWd2YnUwYTg0Mm5ucmQ0N2E5cDNqIn0.fABybhJrX_mnoIVtAsLhpQ'
+);
 
 export const HomeScreen = ({ navigation }: Props): JSX.Element => {
   const locationSubscriptionRef = useRef<{ remove(): void }>();
@@ -57,38 +59,7 @@ export const HomeScreen = ({ navigation }: Props): JSX.Element => {
         </Pressable>
       </View>
       <View style={styles.container}>
-        {longitude && (
-          <MapView
-            loadingEnabled={true}
-            region={{
-              latitude: latitude,
-              longitude: longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            followsUserLocation={true}
-            style={{ flex: 1 }}
-          >
-            <Marker
-              coordinate={{ latitude: latitude, longitude: longitude }}
-              style={{ borderRadius: 20, overflow: 'hidden' }}
-              onPress={() => console.log('CLICKED ON MARKER')}
-            >
-              <View style={{ height: 64, width: 64 }}>
-                <Image
-                  style={{ height: '100%', width: '100%', borderRadius: 50 }}
-                  source={{
-                    uri: `https://cdn.discordapp.com/avatars/${user.discordUserId}/${user.avatar}.png?size=128`,
-                  }}
-                />
-                <Image
-                  style={{ height: '100%', width: '100%' }}
-                  source={require('../assets/CustomMarker.png')}
-                />
-              </View>
-            </Marker>
-          </MapView>
-        )}
+        {longitude && <MapboxGL.MapView style={{ flex: 1 }}></MapboxGL.MapView>}
       </View>
     </SafeAreaView>
   );

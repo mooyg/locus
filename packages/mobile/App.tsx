@@ -11,7 +11,6 @@ import * as Linking from 'expo-linking';
 import { useEffect } from 'react';
 import { StackParamList } from './types/screen.type';
 import { getUser } from './utils/getUser';
-import { useAppDispatch } from './redux/hook';
 import { setUser } from './redux/features/User/user.slice';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
