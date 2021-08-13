@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
@@ -6,6 +6,7 @@ import * as Linking from 'expo-linking';
 import { storeData } from '../utils/storeData';
 import { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as React from 'react';
 
 interface Props {
   signInUpdate: React.Dispatch<React.SetStateAction<boolean | undefined>>;

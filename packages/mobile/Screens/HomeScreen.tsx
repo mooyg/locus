@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import * as React from 'react';
 import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Props } from '../types/screen.type';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +10,7 @@ import { LocationAccuracy } from 'expo-location';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hook';
 import MapboxGL from '@react-native-mapbox-gl/maps';
+
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoibW9veSIsImEiOiJja3F2dWd2YnUwYTg0Mm5ucmQ0N2E5cDNqIn0.fABybhJrX_mnoIVtAsLhpQ'
 );

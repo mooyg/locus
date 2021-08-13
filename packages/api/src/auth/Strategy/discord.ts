@@ -72,7 +72,7 @@ export const discordOauth = (
       if (!req.user) return;
       console.log(req.user.username);
       res.redirect(
-        `exp://192.168.29.20:19000?username=${req.user.username}&id=${req.user.id}&avatar=${req.user.avatar}&email=${req.user.email}&discordUserId=${req.user.discord_user_id}`
+        `io.expo.client://expo-development-client/?url=http%3A%2F%2F192.168.29.20%3A8081?username=${req.user.username}&id=${req.user.id}&avatar=${req.user.avatar}&email=${req.user.email}&discordUserId=${req.user.discord_user_id}`
       );
     }
   );

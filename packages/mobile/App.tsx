@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import * as React from 'react';
+
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { HomeScreen } from './Screens/HomeScreen';
