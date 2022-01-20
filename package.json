@@ -1,0 +1,27 @@
+{
+  "name": "locus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mooyg/locus.git",
+  "author": "mooyg <mooybot@gmail.com>",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.0.28"
+  },
+  "scripts": {
+    "dev": ""
+  },
+  "turbo": {
+    "baseBranch": "origin/master",
+    "pipeline": {
+      "dev": {
+        "cache": false
+      }
+    }
+  }
+}
