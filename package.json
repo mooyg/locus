@@ -10,6 +10,24 @@
     "packages/*",
     "apps/*"
   ],
+  "nohoist": [
+      "**/react-native",
+      "**/react-native/**",
+      "**/@react-native-*",
+      "**/@react-native-*/**",
+      "**/react-native-*",
+      "**/react-native-*/**",
+      "**/*react-navigation/native*",
+      "**/*react-navigation/native*/**",
+      "**/expo",
+      "**/expo/**",
+      "**/@expo",
+      "**/@expo/**",
+      "**/expo-*",
+      "**/expo-*/**",
+      "**/metro-*",
+      "**/metro-*/**"
+    ],
   "devDependencies": {
     "turbo": "^1.0.28"
   },

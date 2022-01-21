@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  database:
+    image: 'postgres'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD:
+    volumes:
+      - locus-db:/var/lib/postgresql/data/
+
+volumes:
+  locus-db:
