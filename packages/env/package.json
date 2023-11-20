@@ -1,0 +1,19 @@
+{
+  "name": "@locus/env",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@t3-oss/env-core": "^0.7.1",
+    "zod": "^3.22.4"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

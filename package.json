@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --output-logs=full",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "name": "locus",
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
