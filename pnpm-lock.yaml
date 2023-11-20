@@ -30,6 +30,9 @@ importers:
       '@epic-web/remember':
         specifier: ^1.0.2
         version: 1.0.2
+      '@expo/vector-icons':
+        specifier: ^13.0.0
+        version: 13.0.0
       '@locus/env':
         specifier: '*'
         version: link:../../packages/env

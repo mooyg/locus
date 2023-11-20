@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@epic-web/remember": "^1.0.2",
+    "@expo/vector-icons": "^13.0.0",
     "@locus/env": "*",
     "@lucia-auth/adapter-prisma": "^3.0.2",
     "@lucia-auth/oauth": "^3.5.0",
