@@ -1,10 +1,10 @@
-import { Pressable, Text, View } from "react-native";
 import * as Browser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import * as SecureStore from "expo-secure-store";
 import { AntDesign } from "@expo/vector-icons";
 import { api } from "../client";
 import { useRouter } from "expo-router";
+import { Button, Heading, YStack } from "tamagui";
 
 export default function Page() {
   const router = useRouter();
@@ -31,14 +31,11 @@ export default function Page() {
     await SecureStore.setItemAsync("session_token", sessionToken);
   };
   return (
-    <View className="flex-1 items-center justify-center">
-      <Pressable
-        onPress={signIn}
-        className="flex flex-row gap-1 items-center justify-center border p-2 rounded-md"
-      >
-        <AntDesign name="google" size={24} color="black" />
-        <Text className="font-bold">Continue with google</Text>
-      </Pressable>
-    </View>
+    <YStack flex={1} alignItems={"center"} justifyContent={"center"}>
+      <Heading>Welcome to locus</Heading>
+      <Button icon={<AntDesign name="google" size={16} />} onPress={signIn}>
+        Continue with google
+      </Button>
+    </YStack>
   );
 }
