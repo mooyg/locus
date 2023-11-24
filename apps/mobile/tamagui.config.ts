@@ -6,8 +6,52 @@
 
 import { config } from "@tamagui/config/v2-native";
 import { color, radius, size, space, zIndex } from "@tamagui/themes";
-import { createTamagui, createTokens } from "tamagui";
+import { createFont, createTamagui, createTokens } from "tamagui";
+const sfProFace = {
+  normal: {
+    normal: "SF-Pro-Display-Regular",
+    italic: "SF-Pro-Text-RegularItalic",
+  },
+  bold: {
+    normal: "SF-Pro-Display-Bold",
+    italic: "SF-Pro-Display-BoldItalic",
+  },
+  300: {
+    normal: "SF-Pro-Display-Light",
+    italic: "SF-Pro-Display-LightItalic",
+  },
+  500: {
+    normal: "SF-Pro-Display-Regular",
+    italic: "SF-Pro-Display-RegularItalic",
+  },
+  600: {
+    normal: "SF-Pro-Display-Medium",
+    italic: "SF-Pro-Display-MediumItalic",
+  },
+  700: {
+    normal: "SF-Pro-Display-Bold",
+    italic: "SF-Pro-Display-BoldItalic",
+  },
+  800: {
+    normal: "SF-Pro-Display-Bold",
+    italic: "SF-Pro-Display-BoldItalic",
+  },
+  900: {
+    normal: "SF-Pro-Display-Black",
+    italic: "SF-Pro-Display-BlackItalic",
+  },
+};
+const headingFont = createFont({
+  size: config.fonts.heading.size,
+  weight: config.fonts.heading.weight,
+  face: sfProFace,
+});
 
+const bodyFont = createFont({
+  size: config.fonts.body.size,
+  weight: config.fonts.body.weight,
+  face: sfProFace,
+});
 const tokens = createTokens({
   color: {
     "bg-primary": "#0D1E2B",
@@ -25,6 +69,10 @@ const tokens = createTokens({
 const tamaguiConfig = createTamagui({
   ...config,
   tokens,
+  fonts: {
+    heading: headingFont,
+    body: bodyFont,
+  },
 });
 // this makes typescript properly type everything based on the config
 

@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as Location from "expo-location";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import BottomSheet from "@gorhom/bottom-sheet";
+import Handle from "../components/SheetHandle";
+import { Avatar, Button, Heading, Stack, Text, XStack, YStack } from "tamagui";
 import { api } from "../client";
-import { useRouter } from "expo-router";
-import {
-  Avatar,
-  Button,
-  ButtonNestingContext,
-  Heading,
-  Stack,
-  XStack,
-  YStack,
-} from "tamagui";
-import { Navigation, Search } from "@tamagui/lucide-icons";
+import { Navigation, Plus, Search } from "@tamagui/lucide-icons";
+import SettingsPage from "./settings";
+import { Settings } from "../components/Settings";
 
 export default function Home() {
-  const router = useRouter();
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["25%", "50%", "100%"], []);
   const { data: user } = api.user.me.useQuery();
 
   const [location, setLocation] = useState<Location.LocationObject | null>(
@@ -39,7 +35,7 @@ export default function Home() {
     <YStack flex={1}>
       <MapView
         style={{
-          flex: 0.7,
+          flex: 1,
         }}
         initialRegion={{
           latitude: location?.coords.latitude,
@@ -58,37 +54,64 @@ export default function Home() {
           ></Marker>
         )}
       </MapView>
-      <YStack
-        flex={0.3}
-        borderTopStartRadius={20}
-        borderTopEndRadius={20}
-        backgroundColor={"$bg-primary"}
-        padding={"$3"}
+      <BottomSheet
+        handleStyle={{
+          backgroundColor: "#0D1E2B",
+          borderTopRightRadius: 8,
+          borderTopLeftRadius: 8,
+        }}
+        handleComponent={Handle}
+        ref={bottomSheetRef}
+        snapPoints={snapPoints}
       >
-        <XStack alignItems="center" justifyContent="space-between">
-          <Avatar circular size="$6">
-            <Avatar.Image src="http://placekitten.com/200/300" />
-            <Avatar.Fallback bc="$btn-primary" />
-          </Avatar>
-          <Button
-            icon={<Search size={24} color="white" />}
-            bg={"$btn-primary"}
-            size={"$5"}
-            circular
-          />
-        </XStack>
-        <Stack alignItems="center" justifyContent="center" flex={1}>
-          <Button
-            alignSelf="center"
-            icon={<Navigation size={24} strokeWidth={3} />}
-            backgroundColor={"$btn-secondary"}
-            color={"white"}
-            size={"$4"}
+        <YStack flex={1} bg="$color.bg-primary">
+          <XStack
+            alignItems="flex-start"
+            justifyContent="space-between"
+            marginTop={"$4"}
+            padding="$2"
           >
-            SEND YOUR LOCATION
-          </Button>
-        </Stack>
-      </YStack>
+            <YStack alignItems="center" gap={"$1"}>
+              <Avatar circular size="$6">
+                <Avatar.Image src="http://placekitten.com/200/300" />
+                <Avatar.Fallback bc="red" />
+              </Avatar>
+              <Heading color={"$color.text-primary"}>{user?.username}</Heading>
+            </YStack>
+            <XStack gap="$2">
+              <Button
+                backgroundColor="$color.btn-primary"
+                icon={<Plus size={24} color="$color.text-secondary" />}
+                borderRadius="$12"
+                size="$5"
+                circular
+              ></Button>
+              <Button
+                borderColor="$color.btn-primary"
+                borderWidth={"$1"}
+                borderRadius="$12"
+                alignItems="center"
+                backgroundColor="none"
+                size="$5"
+                circular
+              >
+                <Search size={24} color="$color.text-secondary" />
+              </Button>
+            </XStack>
+          </XStack>
+          <Stack padding="$2" gap="$6">
+            <Button
+              bg="$color.btn-secondary"
+              icon={<Navigation color="white" size="24" />}
+            >
+              <Text fontWeight="900" fontSize="$7" color="white">
+                SHARE YOUR LOCATION
+              </Text>
+            </Button>
+            <Settings />
+          </Stack>
+        </YStack>
+      </BottomSheet>
     </YStack>
   );
 }
