@@ -8,9 +8,11 @@ import { SafeAreaView } from "react-native";
 import config from "../tamagui.config";
 import * as SecureStore from "expo-secure-store";
 import { TamaguiProvider } from "tamagui";
+import { ToastProvider, ToastViewport } from "@tamagui/toast";
 import { Slot } from "expo-router";
-
 import { useFonts } from "expo-font";
+import { Toast } from "../components/Toast";
+
 export default function Layout() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() => {
@@ -87,7 +89,21 @@ export default function Layout() {
           <SafeAreaProvider>
             <SafeAreaView />
             <TamaguiProvider config={config}>
-              <Slot />
+              <ToastProvider
+                burntOptions={{
+                  from: "bottom",
+                }}
+              >
+                <ToastViewport
+                  flexDirection="column"
+                  bottom={20}
+                  left={0}
+                  right={0}
+                />
+
+                <Toast />
+                <Slot />
+              </ToastProvider>
             </TamaguiProvider>
           </SafeAreaProvider>
         </QueryClientProvider>
