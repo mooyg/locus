@@ -8,15 +8,39 @@ import { api } from "../client"
 import { Navigation, Search } from "@tamagui/lucide-icons"
 import { Settings } from "../components/Settings"
 import * as TaskManager from "expo-task-manager"
-import { useRealtimeLocationStore } from "../store"
+import { useRealtimeLocationStore, useUserStore } from "../store"
 import { CreateFamily } from "../components/CreateFamily"
+import { socket } from "../socket"
+import { useToastController } from "@tamagui/toast"
 
 const REALTIME_LOCATION_TASK_NAME = "REALTIME_LOCATION"
 
 export default function Home() {
+	const toast = useToastController()
+
+	const { setUser } = useUserStore()
+
+	const { data: user } = api.user.get.useQuery(undefined, {
+		onSuccess: async (data) => {
+			console.log(data)
+			if (await Location.hasStartedLocationUpdatesAsync(REALTIME_LOCATION_TASK_NAME)) {
+				if (!data) {
+					return new Error(
+						"Some error occured, Either user isn't in a family or user doesn't exist"
+					)
+				}
+				if (!data.familyId) {
+					return
+				}
+				setUser({
+					id: data.id,
+					familyId: data.familyId,
+				})
+			}
+		},
+	})
 	const bottomSheetRef = useRef<BottomSheet>(null)
 	const snapPoints = useMemo(() => ["25%", "50%", "100%"], [])
-	const { data: user } = api.user.me.useQuery()
 	const [isSharingLocation, setIsSharingLocation] = useState<boolean>()
 	const { realtimeLocation } = useRealtimeLocationStore()
 	const [location, setLocation] = useState<Location.LocationObject | null>(null)
@@ -32,12 +56,18 @@ export default function Home() {
 
 			setLocation(location)
 
+			if (!user?.familyId) return
+
 			const isSharing = await Location.hasStartedLocationUpdatesAsync(REALTIME_LOCATION_TASK_NAME)
+
 			setIsSharingLocation(isSharing)
 		})()
-	}, [])
+	}, [user])
 
 	const shareRealTimeLocation = async () => {
+		if (!user?.familyId) {
+			return toast.show("Can't share location when not in a family.")
+		}
 		const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync()
 		if (foregroundStatus === "granted") {
 			const { status: backgroundStatus, canAskAgain } =
@@ -45,9 +75,7 @@ export default function Home() {
 			if (backgroundStatus === "granted") {
 				Location.startLocationUpdatesAsync(REALTIME_LOCATION_TASK_NAME, {
 					accuracy: Location.Accuracy.BestForNavigation,
-					timeInterval: 3000,
-					deferredUpdatesInterval: 0,
-					deferredUpdatesDistance: 0,
+					timeInterval: 5000,
 					distanceInterval: 0,
 				})
 			} else if (!canAskAgain) {
@@ -118,7 +146,7 @@ export default function Home() {
 							<Heading color={"$color.text-primary"}>{user?.username}</Heading>
 						</YStack>
 						<XStack gap="$2">
-							{!user?.member && <CreateFamily />}
+							{!user?.familyId && <CreateFamily />}
 							<Button
 								borderColor="$color.btn-primary"
 								borderWidth={"$1"}
@@ -167,8 +195,26 @@ TaskManager.defineTask(
 			return error
 		}
 
-		useRealtimeLocationStore.setState({
-			realtimeLocation: data.locations[0],
-		})
+		try {
+			const { user } = useUserStore.getState()
+			if (!user) {
+				return
+			}
+
+			if (!user.familyId) {
+				return
+			}
+			socket.connect()
+
+			socket.emit(`user-location`, {
+				coords: data.locations[0].coords,
+				user: user,
+			})
+			useRealtimeLocationStore.setState({
+				realtimeLocation: data.locations[0],
+			})
+		} catch (e) {
+			console.log(e)
+		}
 	}
 )

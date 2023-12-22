@@ -1,5 +1,5 @@
 {
-  "id": "67d9afc1-23fa-4d70-a8c4-4be2c8e2e17d",
+  "id": "b3bf1b73-797d-4be6-8d86-112d3afa6678",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -12,19 +12,20 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "admin_id": {
           "name": "admin_id",
           "type": "varchar(15)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -140,7 +141,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "members_user_id_family_id_pk": {
+          "name": "members_user_id_family_id_pk",
+          "columns": [
+            "user_id",
+            "family_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "user_session": {

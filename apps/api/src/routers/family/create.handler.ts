@@ -1,10 +1,26 @@
-import { Context } from "../../trpc"
+import { TRPCError } from "@trpc/server"
+import { selectUserWithFamilyMembers } from "../../db/selects/user/selectWithFamilyMembers"
+import { ProtectedContext } from "../../trpc"
 import { TCreateFamilyInput } from "./create.schema"
+import { insertFamily } from "../../db/inserts/family/insert"
 
 type CreateFamilyOptions = {
-	ctx: Context
-	input: TCreateFamilyInput
+  ctx: ProtectedContext
+  input: TCreateFamilyInput
 }
 
-//TODO: Handle family creation
-export const createFamilyHandler = ({ ctx, input }: CreateFamilyOptions) => { }
+export const createFamilyHandler = async ({ ctx, input }: CreateFamilyOptions) => {
+  const userDetails = await selectUserWithFamilyMembers(ctx.user.userId)
+  if (!userDetails) {
+    throw new TRPCError({
+      code: "NOT_FOUND",
+    })
+  }
+  if (userDetails.familyId) {
+    throw new TRPCError({
+      code: "CONFLICT",
+      message: "Already in a family",
+    })
+  }
+  return await insertFamily(input.name, userDetails.id)
+}

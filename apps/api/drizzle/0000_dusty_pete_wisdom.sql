@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "family" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"name" varchar(255),
-	"admin_id" varchar(15)
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"admin_id" varchar(15) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_key" (
@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS "user_key" (
 CREATE TABLE IF NOT EXISTS "members" (
 	"user_id" varchar(15),
 	"family_id" uuid,
-	"is_admin" boolean
+	"is_admin" boolean,
+	CONSTRAINT "members_user_id_family_id_pk" PRIMARY KEY("user_id","family_id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_session" (

@@ -1,15 +1,15 @@
 import { TRPCError, inferAsyncReturnType, initTRPC } from "@trpc/server"
-import { type Request, type Response } from "express"
 import superjson from "superjson"
 import { ZodError } from "zod"
 import { auth } from "./lucia"
 import { User } from "lucia"
 import { db } from "./db"
+import { FastifyReply, FastifyRequest } from "fastify"
 
 export type CreateInnerContextOpts = {
 	db: typeof db
-	req: Request
-	res: Response
+	req: FastifyRequest
+	res: FastifyReply
 	user: User | undefined | null
 }
 
@@ -25,14 +25,16 @@ export const createTrpcContext = ({
 	req,
 	res,
 }: {
-	req: Request
-	res: Response
+	req: FastifyRequest
+	res: FastifyReply
 }): CreateInnerContextOpts => {
 	return createInnerTrpcContext({ db, req, res, user: undefined })
 }
 
 export type Context = inferAsyncReturnType<typeof createTrpcContext>
-
+export type ProtectedContext = Context & {
+	user: User
+}
 const t = initTRPC.context<Context>().create({
 	errorFormatter({ shape, error }) {
 		return {

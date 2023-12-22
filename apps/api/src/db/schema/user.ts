@@ -1,6 +1,8 @@
-import { relations } from "drizzle-orm"
+import { eq, relations } from "drizzle-orm"
 import { pgTable, uuid, varchar } from "drizzle-orm/pg-core"
 import { family } from "./family"
+import { db } from "../index"
+import { member } from "./member"
 
 export const user = pgTable("users", {
 	id: varchar("id", { length: 15 }).primaryKey(),
